@@ -23,8 +23,6 @@ function main() {
 
         renderRoute(new URL(event.target.URL), wrapper);
     });
-
-    history.push(getLinks().calendar);
 }
 
 main()

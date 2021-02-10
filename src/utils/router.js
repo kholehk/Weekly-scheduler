@@ -1,5 +1,6 @@
 
 import Calendar from '../calendar/calendar';
+import CreateEvent from '../create-event/create-event';
 import Start from '../start/start';
 import renderTemplate from './template-utils';
 
@@ -7,7 +8,7 @@ function getLinks() {
     return {
         start: '/',
         calendar: '/calendar',
-        createEvent: 'create-event',
+        createEvent: '/create-event',
     }
 };
 
@@ -23,6 +24,7 @@ async function renderRoute(location, wrapper) {
             props = await Calendar();
             break;
         case links.createEvent:
+            props = await CreateEvent();
             break;
         default:
     }

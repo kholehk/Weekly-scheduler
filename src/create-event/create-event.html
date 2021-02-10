@@ -1,0 +1,43 @@
+<main class="container">
+    <form class="mt-5">
+        <fieldset class="row col-7 mt-2">
+            <label class="col-md col-form-label" for="event">
+                Name of the event:
+            </label>
+            <input class="col form-control" type="text" name="event" id="event">
+        </fieldset>
+        <fieldset class="row col-7 mt-2">
+            <label class="col-md col-form-label" for="participants">
+                Participants:
+            </label>
+            <select class="col form-control form-select" id="participants">
+                <option value="0" selected>All members ...</option>
+                <% members.forEach((name, i)=> { %>
+                    <option value="<%=i+1%>">
+                        <%-name%>
+                    </option>
+                    <% }) %>
+            </select>
+        </fieldset>
+        <fieldset class="row col-7 mt-2">
+            <label class="col-md col-form-label" for="day">
+                Day:
+            </label>
+            <input class="col form-control" type="text" name="day" id="day">
+        </fieldset>
+        <fieldset class="row col-7 mt-2">
+            <label class="col-md col-form-label" for="time">
+                Time:
+            </label>
+            <input class="col form-control" type="text" name="time" id="time">
+        </fieldset>
+        <fieldset class="row justify-content-end mt-3">
+            <button class="col-auto btn btn-secondary">
+                Cancel
+            </button>
+            <button class="ms-2 col-auto btn btn-secondary">
+                Create
+            </button>
+        </fieldset>
+    </form>
+</main>
