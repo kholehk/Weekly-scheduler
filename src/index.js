@@ -1,5 +1,5 @@
 import getHistory from './utils/app-history';
-import { renderRoute } from './utils/router';
+import { getLinks, renderRoute } from './utils/router';
 
 function main() {
 
@@ -23,6 +23,8 @@ function main() {
 
         renderRoute(new URL(event.target.URL), wrapper);
     });
+
+    history.push(getLinks().calendar);
 }
 
 main()
