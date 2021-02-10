@@ -49,7 +49,7 @@ module.exports = {
    plugins: [
       new CleanWebpackPlugin(),
       new HtmlWebpackPlugin({
-         title: "Weekly scheduler",
+         template: "./index.html",
       }),
       new MiniCssExtractPlugin(),
       new webpack.HotModuleReplacementPlugin(),

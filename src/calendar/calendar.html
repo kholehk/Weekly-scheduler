@@ -1,0 +1,45 @@
+<header class="container">
+    <nav class="navbar">
+        <a class="navbar-brand link-secondary" href="<%-links.calendar%>">Calendar</a>
+        <ul class="nav">
+            <li>
+                <select class="form-select">
+                    <option value="0" selected>All members ...</option>
+                    <% members.forEach((name, i)=> { %>
+                        <option value="<%=i+1%>">
+                            <%-name%>
+                        </option>
+                        <% }) %>
+                </select>
+            </li>
+            <li class="ms-3">
+                <a class="btn btn-secondary" href="<%-links.createEvent%>">New Event +</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="container">
+    <table class="table table-bordered text-center">
+        <thead class="table-secondary">
+            <tr class="row">
+                <% tableHeader.forEach(title=> { %>
+                    <th class="col" scope="col">
+                        <%-title%>
+                    </th>
+                    <% }); %>
+            </tr>
+        </thead>
+        <tbody>
+            <% for(let i=10; i<19; i++) { %>
+                <tr class="row">
+                    <th class="col" scope="row">
+                        <%=i%>:00
+                    </th>
+                    <% for(let j=0; j<tableHeader.length-1; j++) { %>
+                        <td class="col"></td>
+                        <% }; %>
+                </tr>
+                <% }; %>
+        </tbody>
+    </table>
+</main>

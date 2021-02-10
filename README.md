@@ -1,1 +1,1 @@
-# Weekly-scheduler
+# Weekly scheduler
