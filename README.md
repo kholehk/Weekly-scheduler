@@ -1,3 +1,3 @@
 # Weekly scheduler
 
-https://kholehk.github.io/calendar
+https://kholehk.github.io/WeeklyScheduler/dist/
