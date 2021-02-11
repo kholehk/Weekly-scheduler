@@ -1,5 +1,5 @@
 import getHistory from './utils/app-history';
-import { getLinks, renderRoute } from './utils/router';
+import { renderRoute } from './utils/router';
 
 function main() {
 

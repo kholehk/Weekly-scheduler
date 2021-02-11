@@ -2,15 +2,7 @@
     <nav class="navbar">
         <a class="navbar-brand link-dark" href="<%-links.calendar%>">Calendar</a>
         <ul class="nav">
-            <li>
-                <select class="form-select">
-                    <option value="0" selected>All members ...</option>
-                    <% members.forEach((name, i)=> { %>
-                        <option value="<%=i+1%>">
-                            <%-name%>
-                        </option>
-                        <% }) %>
-                </select>
+            <li data-module="members">
             </li>
             <li class="ms-3">
                 <a class="btn btn-secondary" href="<%-links.createEvent%>">New Event +</a>

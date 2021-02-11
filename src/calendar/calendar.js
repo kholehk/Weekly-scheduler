@@ -1,4 +1,4 @@
-import getMembers from '../utils/members';
+import getMembers from '../members/members';
 import { getLinks } from '../utils/router';
 import template from './calendar.html';
 
@@ -7,7 +7,6 @@ export default async function Calendar() {
         template,
         data: {
             tableHeader: ['Name', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri',],
-            members: await getMembers(),
             links: { ...getLinks() },
         },
     }
