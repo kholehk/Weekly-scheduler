@@ -1,4 +1,3 @@
-import { appendChildMembers } from '../members/members';
 import renderTemplate from '../utils/template-utils';
 import template from './create-event.html';
 
@@ -9,8 +8,6 @@ export default async function CreateEvent(links) {
   };
 
   const createEvent = renderTemplate(template, data);
-
-  await appendChildMembers(createEvent);
 
   return {
     template: createEvent.innerHTML,

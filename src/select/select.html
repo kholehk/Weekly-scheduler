@@ -1,0 +1,7 @@
+<select class="form-select">
+    <% list.forEach((item, idx)=> { %>
+        <option value="<%=idx%>" <%=(idx===0?"selected":"")%>>
+            <%-item%>
+        </option>
+        <% }) %>
+</select>
