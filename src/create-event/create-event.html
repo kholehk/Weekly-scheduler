@@ -1,41 +1,18 @@
 <form class="container mt-5">
-    <!-- <% labels.foEach() {} %> -->
-    <fieldset class="mt-2">
-        <label class="col-form-label" for="event">
-            Name of the event:
-        </label>
-        <input class="form-control" type="text" name="event" id="event">
-    </fieldset>
-    <fieldset class="mt-2">
-        <label class="col-form-label" for="participants">
-            Participants:
-        </label>
-        <select class="form-select" id="participants">
-            <% members.forEach((name, i)=> { %>
-                <option value="<%=i%>">
-                    <%-name%>
-                </option>
-                <% }) %>
-        </select>
-    </fieldset>
-    <fieldset class="mt-2">
-        <label class="col-form-label" for="day">
-            Day:
-        </label>
-        <input class="form-control" type="text" name="day" id="day">
-    </fieldset>
-    <fieldset class="mt-2">
-        <label class="col-form-label" for="time">
-            Time:
-        </label>
-        <input class="form-control" type="text" name="time" id="time">
-    </fieldset>
-    <div class="justify-content-end mt-3">
-        <button class="btn btn-secondary">
-            Cancel
-        </button>
-        <button class="btn btn-secondary ms-2">
-            Create
-        </button>
-    </div>
+    <% labels.forEach(label=> { %>
+        <fieldset class="mt-2">
+            <label class="col-form-label" for="event">
+                <%-label%>
+            </label>
+            <input class="form-control" type="text" name="event" id="event">
+        </fieldset>
+        <% }); %>
+            <div class="justify-content-end mt-3">
+                <button class="btn btn-secondary">
+                    Cancel
+                </button>
+                <button class="btn btn-secondary ms-2">
+                    Create
+                </button>
+            </div>
 </form>
