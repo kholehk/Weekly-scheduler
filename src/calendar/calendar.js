@@ -4,14 +4,17 @@ import renderTemplate from '../utils/template-utils';
 import appendChildSelect from '../select/select';
 
 export default async function Calendar(links) {
+  const members = await getMembers();
   const data = {
-    tableHeader: ['Name', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
+    tableHeader: ['Time', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
     links,
   };
 
   const calendar = renderTemplate(template, data);
-  const members = await getMembers();
-  appendChildSelect(calendar, ['All members ...', ...members]);
+  const parent = calendar.querySelector('[data-element="select"]');
+  if (parent) {
+    appendChildSelect(parent, ['All members ...', ...members]);
+  }
 
   return {
     template: calendar.innerHTML,
