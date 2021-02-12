@@ -6,19 +6,19 @@ import template from './create-event.html';
 async function CreateEvent(links) {
   const { members, daysWeek, time } = await getConfig();
   const createEvent = renderTemplate(template, { links });
+
   const selects = [
     { id: 'days', list: daysWeek },
     { id: 'time', list: time },
-    { id: 'participants', list: ['All members ...', ...members] },
+    { id: 'participants', list: members, multiple: true },
   ];
 
   selects.forEach((select) => {
     const element = createEvent.querySelector(`[data-element=${select.id}]`);
     if (element) {
       element.innerHTML += Select(select.list);
-      const id = document.createAttribute('id');
-      id.value = select.id;
-      element.lastChild.attributes.setNamedItem(id);
+      element.lastChild.setAttribute('id', select.id);
+      element.lastChild.multiple = !!select.multiple;
     }
   });
 
