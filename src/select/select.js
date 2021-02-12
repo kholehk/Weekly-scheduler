@@ -1,12 +1,10 @@
 import renderTemplate from '../utils/template-utils';
 import template from './select.html';
 
-function appendChildSelect(parent, list) {
+function Select(list) {
   const select = renderTemplate(template, { list });
 
-  parent.appendChild(select.firstChild);
-
-  return select.firstChild;
+  return select.innerHTML;
 }
 
-export default appendChildSelect;
+export default Select;

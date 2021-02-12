@@ -2,7 +2,7 @@
     <nav class="navbar">
         <a class="navbar-brand link-dark" href="<%-links.calendar%>">Calendar</a>
         <ul class="nav">
-            <li data-element="select">
+            <li data-element="members">
             </li>
             <li class="ms-3">
                 <a class="btn btn-secondary" href="<%-links.createEvent%>">New Event +</a>
@@ -14,7 +14,7 @@
     <table class="table table-bordered text-center">
         <thead class="table-secondary">
             <tr class="row">
-                <% tableHeader.forEach(title=> { %>
+                <% table.header.forEach(title=> { %>
                     <th class="col" scope="col">
                         <%-title%>
                     </th>
@@ -22,16 +22,16 @@
             </tr>
         </thead>
         <tbody>
-            <% for(let i=10; i<19; i++) { %>
+            <% table.rows.forEach(time=> { %>
                 <tr class="row">
                     <th class="col" scope="row">
-                        <%=i%>:00
+                        <%=time%>
                     </th>
-                    <% for(let j=0; j<tableHeader.length-1; j++) { %>
+                    <% for(let j=1; j<table.header.length; j++) { %>
                         <td class="col"></td>
                         <% }; %>
                 </tr>
-                <% }; %>
+                <% }); %>
         </tbody>
     </table>
 </main>

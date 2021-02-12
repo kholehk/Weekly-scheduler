@@ -1,23 +1,22 @@
-import getMembers from '../utils/members';
 import template from './calendar.html';
 import renderTemplate from '../utils/template-utils';
-import appendChildSelect from '../select/select';
+import getConfig from '../utils/config';
+import Select from '../select/select';
 
-export default async function Calendar(links) {
-  const members = await getMembers();
-  const data = {
-    tableHeader: ['Time', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
-    links,
+async function Calendar(links) {
+  const { members, daysWeek, time } = await getConfig();
+  const table = {
+    header: ['Time', ...daysWeek],
+    rows: time,
   };
 
-  const calendar = renderTemplate(template, data);
-  const parent = calendar.querySelector('[data-element="select"]');
-  if (parent) {
-    appendChildSelect(parent, ['All members ...', ...members]);
+  const calendar = renderTemplate(template, { table, links });
+  const selectMembers = calendar.querySelector('[data-element="members"]');
+  if (selectMembers) {
+    selectMembers.innerHTML = Select(['All members ...', ...members]);
   }
 
-  return {
-    template: calendar.innerHTML,
-    data: {},
-  };
+  return calendar.innerHTML;
 }
+
+export default Calendar;

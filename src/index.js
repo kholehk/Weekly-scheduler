@@ -2,11 +2,13 @@ import getHistory from './utils/app-history';
 import renderRoute from './utils/router';
 
 function main() {
-  const wrapper = document.querySelector('body');
+  const wrapper = document.querySelector('#root');
   if (wrapper === null) return;
 
   const history = getHistory();
-  history.listen((listener) => renderRoute(listener.location, wrapper));
+  history.listen(async (listener) => {
+    wrapper.innerHTML = await renderRoute(listener.location);
+  });
 
   document.addEventListener('click', (event) => {
     event.preventDefault();
@@ -17,10 +19,10 @@ function main() {
     history.push(href);
   });
 
-  window.addEventListener('load', (event) => {
+  window.addEventListener('load', async (event) => {
     event.preventDefault();
 
-    renderRoute(new URL(event.target.URL), wrapper);
+    wrapper.innerHTML = await renderRoute(new URL(event.target.URL));
   });
 }
 

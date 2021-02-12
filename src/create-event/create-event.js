@@ -1,26 +1,28 @@
-import appendChildSelect from '../select/select';
-import getMembers from '../utils/members';
+import Select from '../select/select';
+import getConfig from '../utils/config';
 import renderTemplate from '../utils/template-utils';
 import template from './create-event.html';
 
-export default async function CreateEvent(links) {
-  const members = await getMembers();
-  const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
-  const time = ['10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00'];
-  const data = {
-    links,
-  };
+async function CreateEvent(links) {
+  const { members, daysWeek, time } = await getConfig();
+  const createEvent = renderTemplate(template, { links });
+  const selects = [
+    { id: 'days', list: daysWeek },
+    { id: 'time', list: time },
+    { id: 'participants', list: ['All members ...', ...members] },
+  ];
 
-  const createEvent = renderTemplate(template, data);
-  const parents = createEvent.querySelectorAll('[data-element="select"]');
+  selects.forEach((select) => {
+    const element = createEvent.querySelector(`[data-element=${select.id}]`);
+    if (element) {
+      element.innerHTML += Select(select.list);
+      const id = document.createAttribute('id');
+      id.value = select.id;
+      element.lastChild.attributes.setNamedItem(id);
+    }
+  });
 
-  if (parents.length) {
-    const selectDays = appendChildSelect(parents[0], days);
-    const selectTime = appendChildSelect(parents[1], time);
-  }
-
-  return {
-    template: createEvent.innerHTML,
-    data: { links },
-  };
+  return createEvent.innerHTML;
 }
+
+export default CreateEvent;

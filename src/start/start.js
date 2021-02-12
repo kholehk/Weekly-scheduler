@@ -1,8 +1,10 @@
+import renderTemplate from '../utils/template-utils';
 import template from './start.html';
 
-export default function Start(links) {
-  return {
-    template,
-    data: { links },
-  };
+function Start(links) {
+  const start = renderTemplate(template, { links });
+
+  return start.innerHTML;
 }
+
+export default Start;
