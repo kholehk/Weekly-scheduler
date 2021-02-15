@@ -16,7 +16,7 @@ async function Calendar(links) {
     selectMembers.innerHTML = Select(['All members ...', ...members]);
   }
 
-  return calendar.innerHTML;
+  return calendar;
 }
 
 export default Calendar;

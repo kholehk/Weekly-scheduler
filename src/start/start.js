@@ -4,7 +4,7 @@ import template from './start.html';
 function Start(links) {
   const start = renderTemplate(template, { links });
 
-  return start.innerHTML;
+  return start;
 }
 
 export default Start;

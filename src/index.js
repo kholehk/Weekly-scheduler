@@ -7,7 +7,7 @@ function main() {
 
   const history = getHistory();
   history.listen(async (listener) => {
-    wrapper.innerHTML = await renderRoute(listener.location);
+    await renderRoute(listener.location, wrapper);
   });
 
   document.addEventListener('click', (event) => {
@@ -22,7 +22,7 @@ function main() {
   window.addEventListener('load', async (event) => {
     event.preventDefault();
 
-    wrapper.innerHTML = await renderRoute(new URL(event.target.URL));
+    await renderRoute(new URL(event.target.URL), wrapper);
   });
 }
 

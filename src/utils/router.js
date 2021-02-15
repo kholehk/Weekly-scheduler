@@ -10,7 +10,7 @@ function getLinks() {
   };
 }
 
-async function renderRoute(location) {
+async function renderRoute(location, wrapper) {
   const path = location.pathname;
   const links = getLinks();
   let render = Start(links);
@@ -27,7 +27,8 @@ async function renderRoute(location) {
     default:
   }
 
-  return render;
+  [...wrapper.children].forEach((element) => element.remove());
+  wrapper.append(...render.children);
 }
 
 export default renderRoute;
