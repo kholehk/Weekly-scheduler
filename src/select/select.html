@@ -1,4 +1,4 @@
-<select class="form-select" name="<%-id%>" id="<%-id%>" <% if (multiple) { %> multiple <% } %>
+<select class="form-select" name="<%-id%>" id="<%-id%>" <% if (multiple) { %> multiple <% } %>>
         <% list.forEach((item, idx)=> { %>
             <option value="<%=idx%>" <%=(idx===0?"selected":"")%>>
                 <%-item%>

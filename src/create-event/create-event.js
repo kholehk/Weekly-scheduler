@@ -34,11 +34,11 @@ async function CreateEvent(links) {
 
   selects.forEach(({ id, list, multiple }) => {
     const fieldSet = createEvent.querySelector(`[data-element=${id}]`);
-    if (fieldSet) {
-      const input = Select(id, list, multiple);
+    if (!fieldSet) return;
 
-      fieldSet.append(...input.children);
-    }
+    const input = Select(id, list, multiple);
+
+    fieldSet.append(...input.children);
   });
 
   createEvent

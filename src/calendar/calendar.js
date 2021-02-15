@@ -9,12 +9,13 @@ async function Calendar(links) {
     header: ['Time', ...daysWeek],
     rows: time,
   };
-
+  const id = 'members';
   const calendar = renderTemplate(template, { table, links });
-  const selectMembers = calendar.querySelector('[data-element="members"]');
-  if (selectMembers) {
-    selectMembers.innerHTML = Select(['All members ...', ...members]);
-  }
+  const selectMembers = calendar.querySelector(`[data-element="${id}"]`);
+  if (!selectMembers) return calendar;
+
+  [...selectMembers.children].forEach((element) => element.remove());
+  selectMembers.append(...(Select(id, ['All members ...', ...members]).children));
 
   return calendar;
 }
