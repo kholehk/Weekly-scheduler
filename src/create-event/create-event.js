@@ -7,9 +7,9 @@ import template from './create-event.html';
 function submitForm(form, listEvents, keys) {
   const newEvent = [...form]
     .reduce((acc, curr) => {
-      if (!curr.hasAttribute('id')) return acc;
+      if (!curr.hasAttribute('name')) return acc;
 
-      acc[curr.id] = curr.id === keys.participants
+      acc[curr.name] = curr.name === keys.participants
         ? [...curr.selectedOptions].map((opt) => opt.value)
         : curr.value;
 
@@ -21,13 +21,13 @@ function submitForm(form, listEvents, keys) {
       existEvent[keys.time] === newEvent[keys.time]
       && existEvent[keys.days] === newEvent[keys.days]
     ) {
-      throw new CreateEventError('Failed to create an event. Time slot is already booked.');
+      throw new CreateEventError(
+        'Failed to create an event. Time slot is already booked.',
+      );
     }
   });
 
-  listEvents.push(newEvent);
-
-  console.log(listEvents);
+  listEvents.push(JSON.stringify(newEvent));
 }
 
 async function CreateEvent(links) {

@@ -7,7 +7,27 @@ const eventKeys = Object.freeze({
   time: 'time',
 });
 
-const listEvents = [];
+const listEvents = {
+  push(event) {
+    localStorage.setItem(localStorage.length, event);
+  },
+
+  forEach(cb) {
+    let element;
+
+    for (let i = 0; i < localStorage.length; i += 1) {
+      const key = localStorage.key(i);
+
+      try {
+        element = JSON.parse(localStorage.getItem(key));
+      } catch {
+        element = {};
+      }
+
+      cb(element, key);
+    }
+  },
+};
 
 async function getMembers() {
   const urlAPI = 'https://rickandmortyapi.com/api/character/2,3,5,8,13';
