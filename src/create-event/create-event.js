@@ -1,3 +1,4 @@
+import CreateEventError from '../error/error';
 import Select from '../select/select';
 import getConfig from '../utils/config';
 import renderTemplate from '../utils/template-utils';
@@ -9,11 +10,20 @@ function submitForm(form, listEvents, keys) {
       if (!curr.hasAttribute('id')) return acc;
 
       acc[curr.id] = curr.id === keys.participants
-        ? [...curr.selectedOptions]
-        : [curr.value];
+        ? [...curr.selectedOptions].map((opt) => opt.value)
+        : curr.value;
 
       return acc;
     }, {});
+
+  listEvents.forEach((existEvent) => {
+    if (
+      existEvent[keys.time] === newEvent[keys.time]
+      && existEvent[keys.days] === newEvent[keys.days]
+    ) {
+      throw new CreateEventError('Failed to create an event. Time slot is already booked.');
+    }
+  });
 
   listEvents.push(newEvent);
 
@@ -43,7 +53,13 @@ async function CreateEvent(links) {
 
   createEvent
     .querySelector('button[type="submit"]')
-    .addEventListener('click', (e) => submitForm(e.target.form, listEvents, eventKeys));
+    .addEventListener('click', (e) => {
+      try {
+        submitForm(e.target.form, listEvents, eventKeys);
+      } catch (error) {
+        if (error instanceof CreateEventError) { error.alert(); }
+      }
+    });
 
   return createEvent;
 }
