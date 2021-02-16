@@ -8,6 +8,14 @@ const eventKeys = Object.freeze({
 });
 
 const listEvents = {
+  get() {
+    const list = [];
+
+    this.forEach((element) => { list.push(element); });
+
+    return list;
+  },
+
   push(event) {
     localStorage.setItem(localStorage.length, event);
   },

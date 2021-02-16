@@ -1,5 +1,6 @@
 import CreateEventError from '../error/error';
 import Select from '../select/select';
+import getHistory from '../utils/app-history';
 import getConfig from '../utils/config';
 import renderTemplate from '../utils/template-utils';
 import template from './create-event.html';
@@ -51,11 +52,14 @@ async function CreateEvent(links) {
     fieldSet.append(...input.children);
   });
 
+  const history = getHistory();
   createEvent
     .querySelector('button[type="submit"]')
     .addEventListener('click', (e) => {
       try {
         submitForm(e.target.form, listEvents, eventKeys);
+        const calendar = history.createHref(links.calendar);
+        history.push(calendar);
       } catch (error) {
         if (error instanceof CreateEventError) { error.alert(); }
       }
