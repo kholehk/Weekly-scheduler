@@ -1,8 +1,8 @@
-import renderTemplate from '../utils/template-utils';
-import template from './select.html';
+import { Template } from '../utils/template';
+import selectHTML from './select.html';
 
 function Select(id, list, multiple = false) {
-  const select = renderTemplate(template, { id, list, multiple });
+  const select = Template(selectHTML, { id, list, multiple });
 
   return select;
 }

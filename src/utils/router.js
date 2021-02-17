@@ -1,6 +1,7 @@
 import Calendar from '../calendar/calendar';
 import CreateEvent from '../create-event/create-event';
 import Start from '../start/start';
+import { clearNode } from './template';
 
 function getLinks() {
   return {
@@ -13,22 +14,22 @@ function getLinks() {
 async function renderRoute(location, wrapper) {
   const path = location.pathname;
   const links = getLinks();
-  let render = Start(links);
+  let page = Start(links);
 
   switch (path) {
     case links.start:
       break;
     case links.calendar:
-      render = await Calendar(links);
+      page = await Calendar(links);
       break;
     case links.createEvent:
-      render = await CreateEvent(links);
+      page = await CreateEvent(links);
       break;
     default:
   }
 
-  [...wrapper.children].forEach((element) => element.remove());
-  wrapper.append(...render.children);
+  clearNode(wrapper);
+  page.addTo(wrapper);
 }
 
 export default renderRoute;

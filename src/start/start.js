@@ -1,8 +1,8 @@
-import renderTemplate from '../utils/template-utils';
-import template from './start.html';
+import { Template } from '../utils/template';
+import startHTML from './start.html';
 
 function Start(links) {
-  return renderTemplate(template, { links });
+  return Template(startHTML, { links });
 }
 
 export default Start;

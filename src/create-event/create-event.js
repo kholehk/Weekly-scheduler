@@ -1,9 +1,9 @@
-import CreateEventError from '../error/error';
+import CreateEventError from '../utils/error';
 import Select from '../select/select';
 import getHistory from '../utils/app-history';
 import getConfig from '../utils/config';
-import renderTemplate from '../utils/template-utils';
-import template from './create-event.html';
+import { Template } from '../utils/template';
+import createEventHTML from './create-event.html';
 
 function submitForm(form, listEvents, keys) {
   const newEvent = [...form]
@@ -35,7 +35,8 @@ async function CreateEvent(links) {
   const {
     eventKeys, listEvents, members, daysWeek, time,
   } = await getConfig();
-  const createEvent = renderTemplate(template, { eventKeys, links });
+
+  const createEvent = Template(createEventHTML, { eventKeys, links });
 
   const selects = [
     { id: eventKeys.days, list: daysWeek },
@@ -44,22 +45,22 @@ async function CreateEvent(links) {
   ];
 
   selects.forEach(({ id, list, multiple }) => {
-    const fieldSet = createEvent.querySelector(`[data-element=${id}]`);
+    const fieldSet = createEvent.getRender().querySelector(`[data-element=${id}]`);
     if (!fieldSet) return;
 
-    const input = Select(id, list, multiple);
-
-    fieldSet.append(...input.children);
+    Select(id, list, multiple).addTo(fieldSet);
   });
 
   const history = getHistory();
+
   createEvent
+    .getRender()
     .querySelector('button[type="submit"]')
     .addEventListener('click', (e) => {
       try {
         submitForm(e.target.form, listEvents, eventKeys);
-        const calendar = history.createHref(links.calendar);
-        history.push(calendar);
+        const calendarRef = history.createHref(links.calendar);
+        history.push(calendarRef);
       } catch (error) {
         if (error instanceof CreateEventError) { error.alert(); }
       }

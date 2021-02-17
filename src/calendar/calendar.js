@@ -1,5 +1,5 @@
-import template from './calendar.html';
-import renderTemplate from '../utils/template-utils';
+import calendarHTML from './calendar.html';
+import { clearNode, Template } from '../utils/template';
 import getConfig from '../utils/config';
 import Select from '../select/select';
 
@@ -14,10 +14,12 @@ function markEvents(calendar, listEvents, keys, member = 0) {
       ? true
       : !!participants.find(member - 1);
 
-    const cell = calendar.querySelector(`[data-${keys.days}="${days}"][data-${keys.time}="${time}"]`);
+    const cell = calendar.getRender().querySelector(
+      `[data-${keys.days}="${days}"][data-${keys.time}="${time}"]`,
+    );
 
     if (isParticipant && cell) {
-      cell.innerHTML = `<span>${event}</span>`;
+      cell.innerHTML = event;
     }
   });
 }
@@ -33,14 +35,14 @@ async function Calendar(links) {
   };
 
   const id = 'members';
-  const calendar = renderTemplate(template, { table, links, eventKeys });
+  const calendar = Template(calendarHTML, { table, links, eventKeys });
   markEvents(calendar, listEvents, eventKeys);
 
-  const selectMembers = calendar.querySelector(`[data-element="${id}"]`);
-  if (!selectMembers) return calendar;
+  const liMembers = calendar.getRender().querySelector(`[data-element="${id}"]`);
+  if (!liMembers) return calendar;
 
-  [...selectMembers.children].forEach((element) => element.remove());
-  selectMembers.append(...(Select(id, ['All members ...', ...members]).children));
+  clearNode(liMembers);
+  Select(id, ['All members ...', ...members]).addTo(liMembers);
 
   return calendar;
 }
