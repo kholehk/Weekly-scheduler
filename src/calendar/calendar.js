@@ -26,11 +26,7 @@ function markEvents(calendarTable, listEvents, keys, member = 0) {
     if (isParticipant && cell) {
       cell.style.backgroundColor = 'lightgreen';
       cell.style.position = 'relative';
-      Mark(event).addTo(cell);
-      cell.addEventListener('click', (ev) => {
-        if (!(ev.target.dataset.dismiss === 'delete')) return;
-        confirm(`Are you sure you want to delete "${event}" event?`);
-      });
+      Mark(event, days, time).addTo(cell);
     }
   });
 }

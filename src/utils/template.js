@@ -12,7 +12,6 @@ function Template(html, data) {
 
   return {
     method: Object.freeze({ append: 'append', prepend: 'prepend' }),
-
     getRender() {
       return wrapper;
     },
