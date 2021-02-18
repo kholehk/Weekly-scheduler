@@ -2,23 +2,28 @@ import calendarHTML from './calendar.html';
 import { clearNode, Template } from '../utils/template';
 import getConfig from '../utils/config';
 import Select from '../select/select';
+import Table from '../table/table';
 
 // member = 0, all members
-function markEvents(calendar, listEvents, keys, member = 0) {
+function markEvents(calendarTable, listEvents, keys, member = 0) {
   listEvents.get().forEach((element) => {
     const {
       event, participants, days, time,
     } = element;
 
-    const isParticipant = member === 0
+    const participant = Array.isArray(participants)
+      ? participants.find((part) => +part === (member - 1))
+      : false;
+    const isParticipant = +member === 0
       ? true
-      : !!participants.find(member - 1);
+      : !!participant;
 
-    const cell = calendar.getRender().querySelector(
+    const cell = calendarTable.querySelector(
       `[data-${keys.days}="${days}"][data-${keys.time}="${time}"]`,
     );
 
     if (isParticipant && cell) {
+      cell.style.backgroundColor = 'lightgreen';
       cell.innerHTML = event;
     }
   });
@@ -34,15 +39,30 @@ async function Calendar(links) {
     rows: time,
   };
 
-  const id = 'members';
-  const calendar = Template(calendarHTML, { table, links, eventKeys });
-  markEvents(calendar, listEvents, eventKeys);
+  const calendar = Template(calendarHTML, { links });
+  const calendarTable = calendar.getRender().querySelector('main');
+  if (!calendarTable) return calendar;
 
+  clearNode(calendarTable);
+  Table(table, eventKeys).addTo(calendarTable);
+
+  markEvents(calendarTable, listEvents, eventKeys);
+
+  const id = 'members';
   const liMembers = calendar.getRender().querySelector(`[data-element="${id}"]`);
   if (!liMembers) return calendar;
 
   clearNode(liMembers);
-  Select(id, ['All members ...', ...members]).addTo(liMembers);
+  const selectMembers = Select(id, ['All members ...', ...members]);
+  selectMembers
+    .getRender()
+    .querySelector('select')
+    .addEventListener('change', (ev) => {
+      clearNode(calendarTable);
+      Table(table, eventKeys).addTo(calendarTable);
+      markEvents(calendarTable, listEvents, eventKeys, ev.target.value);
+    });
+  selectMembers.addTo(liMembers);
 
   return calendar;
 }

@@ -11,28 +11,4 @@
     </nav>
 </header>
 <main class="container">
-    <table class="table table-bordered text-center">
-        <thead class="table-secondary">
-            <tr class="row">
-                <% table.header.forEach(title=> { %>
-                    <th class="col" scope="col">
-                        <%-title%>
-                    </th>
-                    <% }); %>
-            </tr>
-        </thead>
-        <tbody>
-            <% table.rows.forEach((time, i)=> { %>
-                <tr class="row">
-                    <th class="col" scope="row">
-                        <%=time%>
-                    </th>
-                    <% for(let j=1; j<table.header.length; j++) { %>
-                        <td class="col" data-<%=eventKeys.time %> = "<%= i %>" data-<%= eventKeys.days %>="<%= j-1 %>">
-                        </td>
-                        <% }; %>
-                </tr>
-                <% }); %>
-        </tbody>
-    </table>
 </main>
