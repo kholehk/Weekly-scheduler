@@ -3,6 +3,7 @@ import { clearNode, Template } from '../utils/template';
 import getConfig from '../utils/config';
 import Select from '../select/select';
 import Table from '../table/table';
+import Mark from '../mark/mark';
 
 // member = 0, all members
 function markEvents(calendarTable, listEvents, keys, member = 0) {
@@ -24,7 +25,12 @@ function markEvents(calendarTable, listEvents, keys, member = 0) {
 
     if (isParticipant && cell) {
       cell.style.backgroundColor = 'lightgreen';
-      cell.innerHTML = event;
+      cell.style.position = 'relative';
+      Mark(event).addTo(cell);
+      cell.addEventListener('click', (ev) => {
+        if (!(ev.target.dataset.dismiss === 'delete')) return;
+        confirm(`Are you sure you want to delete "${event}" event?`);
+      });
     }
   });
 }
