@@ -50,6 +50,21 @@ async function Calendar(links) {
 
   markEvents(calendarTable, listEvents, eventKeys);
 
+  calendarTable.addEventListener('click', (ev) => {
+    const { delCell } = ev.target.dataset;
+    if (!delCell) return;
+
+    const [d, t] = [...String(delCell).split('_')];
+
+    const key = listEvents
+      .find((curr) => +curr[eventKeys.days] === +d && +curr[eventKeys.time] === +t);
+    listEvents.remove(key);
+
+    clearNode(calendarTable);
+    Table(table, eventKeys).addTo(calendarTable);
+    markEvents(calendarTable, listEvents, eventKeys);
+  });
+
   const id = 'members';
   const liMembers = calendar.getRender().querySelector(`[data-element="${id}"]`);
   if (!liMembers) return calendar;

@@ -8,6 +8,18 @@ const eventKeys = Object.freeze({
 });
 
 const listEvents = {
+  find(cb) {
+    let findKey;
+
+    this.forEach((element, key) => {
+      findKey = (!findKey && cb(element, key))
+        ? key
+        : findKey;
+    });
+
+    return findKey;
+  },
+
   get() {
     const list = [];
 
@@ -18,6 +30,10 @@ const listEvents = {
 
   push(event) {
     localStorage.setItem(localStorage.length, event);
+  },
+
+  remove(key) {
+    localStorage.removeItem(key);
   },
 
   forEach(cb) {
