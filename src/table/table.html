@@ -11,11 +11,11 @@
   <tbody>
     <% table.rows.forEach((time, i)=> { %>
       <tr class="row">
-        <th class="col" scope="row">
+        <th class="col col-table" scope="row">
           <%=time%>
         </th>
         <% for(let j=1; j<table.header.length; j++) { %>
-          <td class="col" data-<%=eventKeys.time %> = "<%= i %>" data-<%= eventKeys.days %>="<%= j-1 %>">
+          <td class="col col-table" data-<%=eventKeys.time %> = "<%= i %>" data-<%= eventKeys.days %>="<%= j-1 %>">
           </td>
           <% }; %>
       </tr>
