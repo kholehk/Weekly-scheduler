@@ -1,6 +1,7 @@
 import Calendar from '../calendar/calendar';
 import CreateEvent from '../create-event/create-event';
 import Start from '../start/start';
+import getHistory from './app-history';
 import { clearNode } from './template';
 
 function getLinks() {
@@ -18,6 +19,7 @@ async function renderRoute(location, wrapper) {
 
   switch (path) {
     case links.start:
+      getHistory().push(links.calendar);
       break;
     case links.calendar:
       page = await Calendar(links);

@@ -5,20 +5,11 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
-  mode: 'development',
-  entry: './index.js',
-  devtool: 'inline-source-map',
+  mode: 'production',
+  entry: './src/index.js',
   output: {
     filename: 'bundle.[hash].js',
-    path: path.resolve(__dirname, '../dist'),
-  },
-  devServer: {
-    historyApiFallback: true,
-    contentBase: path.resolve(__dirname, '../dist'),
-    open: true,
-    compress: true,
-    hot: true,
-    port: 8080,
+    path: path.resolve(__dirname, './build'),
   },
   module: {
     rules: [
@@ -41,7 +32,6 @@ module.exports = {
       },
       {
         test: /\.html$/i,
-        // use: ['file-loader?name=[name].[ext]', 'extract-loader', 'html-loader'],
         loader: 'html-loader',
       },
     ],
@@ -49,7 +39,7 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      template: './index.html',
+      template: './src/index.html',
     }),
     new MiniCssExtractPlugin(),
     new webpack.HotModuleReplacementPlugin(),
