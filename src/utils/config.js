@@ -29,21 +29,21 @@ const listEvents = {
   },
 
   push(event) {
-    localStorage.setItem(localStorage.length, event);
+    sessionStorage.setItem(sessionStorage.length, event);
   },
 
   remove(key) {
-    localStorage.removeItem(key);
+    sessionStorage.removeItem(key);
   },
 
   forEach(cb) {
     let element;
 
-    for (let i = 0; i < localStorage.length; i += 1) {
-      const key = localStorage.key(i);
+    for (let i = 0; i < sessionStorage.length; i += 1) {
+      const key = sessionStorage.key(i);
 
       try {
-        element = JSON.parse(localStorage.getItem(key));
+        element = JSON.parse(sessionStorage.getItem(key));
       } catch {
         element = {};
       }
